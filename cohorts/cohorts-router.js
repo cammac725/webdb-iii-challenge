@@ -69,4 +69,20 @@ router.put('/:id', (req, res) => {
     })
 })
 
+router.delete('/:id', (req, res) => {
+  db('cohorts')
+    .where({ id: req.params.id })
+    .del()
+    .then(count => {
+      if (count > 0) {
+        res.status(204).end()
+      } else {
+        res.status(404).json({ message: 'Cohort ID could not be found' })
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Server error' })
+    })
+})
+
 module.exports = router;

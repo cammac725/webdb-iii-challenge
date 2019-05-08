@@ -1,14 +1,11 @@
 const express = require('express');
-const morgan = require('morgan');
-const helmet = require('helmet');
+const configMiddleware = require('./config/middleware')
 
 const cohortsRouter = require('./cohorts/cohorts-router')
 
 const server = express();
 
-server.use(morgan('dev'));
-server.use(helmet());
-server.use(express.json());
+configMiddleware(server)
 
 server.use('/api/cohorts', cohortsRouter)
 
