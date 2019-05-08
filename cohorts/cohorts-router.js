@@ -31,6 +31,25 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.get('/:id/students', (req, res) => {
+  db('cohorts')
+    .where({ id: req.params.id })
+    .first()
+    .then(cohort => {
+      if (cohort) {
+        db('students')
+          .then(students => {
+            res.status(200).json(students)
+          })
+      } else {
+        res.status(404).json({ message: 'Cohort ID could not be found' })
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Server error' })
+    })
+})
+
 router.post('/', (req, res) => {
   db('cohorts')
     .insert(req.body)
