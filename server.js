@@ -9,6 +9,6 @@ const server = express();
 configMiddleware(server);
 
 server.use('/api/cohorts', cohortsRouter);
-server.use('./api/students', studentsRouter);
+server.use('/api/students', studentsRouter);
 
 module.exports = server;
